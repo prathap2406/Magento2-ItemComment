@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+	<event name="checkout_cart_add_product_complete">
+		<observer instance="Rage\ProductComment\Observer\Frontend\Checkout\CartProductAddAfter" name="add_after"/>
+	</event>
+    <event name="checkout_cart_product_update_after">
+		<observer instance="Rage\ProductComment\Observer\Frontend\Checkout\CartProductUpdateAfter" name="update_product"/>
+	</event>
+
+	<!--<event name="checkout_cart_update_items_after">
+		<observer instance="Rage\ProductComment\Observer\Frontend\Checkout\CartUpdateItemsAfter" name="rage_productcomment_observer_frontend_checkout_cartupdateitemsafter_checkout_cart_update_items_after"/>
+	</event>
+	<event name="checkout_cart_save_after">
+		<observer instance="Rage\ProductComment\Observer\Frontend\Checkout\CartSaveAfter" name="rage_productcomment_observer_frontend_checkout_cartsaveafter_checkout_cart_save_after"/>
+	</event>
+	<event name="checkout_cart_product_update_after">
+		<observer instance="Rage\ProductComment\Observer\Frontend\Checkout\CartProductUpdateAfter" name="rage_productcomment_observer_frontend_checkout_cartproductupdateafter_checkout_cart_product_update_after"/>
+	</event>
+	<event name="controller_action_predispatch_catalog_product_view">
+		<observer instance="Rage\ProductComment\Observer\Frontend\Controller\ActionPredispatchCheckoutIndexIndex" name="rage_productcomment_observer_frontend_controller_actionpredispatchcatalogproductview_controller_action_predispatch_catalog_product_view"/> </event>-->
+</config>

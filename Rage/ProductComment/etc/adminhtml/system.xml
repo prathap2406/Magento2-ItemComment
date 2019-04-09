@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="rage" sortOrder="999" translate="label">
+			<label>rage</label>
+		</tab>
+		<section id="product" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<label>product</label>
+			<tab>rage</tab>
+			<resource>Rage_ProdcutComment::config_rage_prodcutcomment</resource>
+			<group id="productcomment" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>productcomment</label>
+				<field id="comment" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>comment</label>
+					<comment/>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

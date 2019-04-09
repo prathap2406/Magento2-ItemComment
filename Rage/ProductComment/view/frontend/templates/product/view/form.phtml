@@ -1,0 +1,83 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php
+$blockObj= $block->getLayout()->createBlock('Rage\ProductComment\Block\ProductComment');
+?>
+
+<div class="product-add-form">
+    <form data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
+          action="<?= /* @NoEscape */ $block->getSubmitUrl($_product) ?>" method="post"
+          id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+                <?php
+                    $product_comments =  $blockObj->getCheckoutSession($_product->getId());//$this->helper('Rage\ProductComment\Helper\Data')->getCheckoutSession($_product->getId());
+                ?>
+        <textarea rows="3" cols="50" maxlength="200" id="textarea" name="product_comment" placeholder="Enter Item Comment"><?php if ($product_comments) {
+                    echo $product_comments;
+                } ?></textarea>
+                <div id="textarea_feedback"></div>
+        <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $_product->getId() ?>" />
+        <input type="hidden" name="selected_configurable_option" value="" />
+        <input type="hidden" name="related_product" id="related-products-field" value="" />
+        <input type="hidden" name="item"  value="<?= /* @noEscape */ $block->getRequest()->getParam('id') ?>" />
+        <?= $block->getBlockHtml('formkey') ?>
+        <?= $block->getChildHtml('form_top') ?>
+        <?php if (!$block->hasOptions()):?>
+            <?= $block->getChildHtml('product_info_form_content') ?>
+        <?php else:?>
+            <?php if ($_product->isSaleable() && $block->getOptionsContainer() == 'container1'):?>
+                <?= $block->getChildChildHtml('options_container') ?>
+            <?php endif;?>
+        <?php endif; ?>
+
+        <?php if ($_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2'):?>
+            <?= $block->getChildChildHtml('options_container') ?>
+        <?php endif;?>
+        <?= $block->getChildHtml('form_bottom') ?>
+    </form>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'priceBox'
+    ], function($){
+
+        var dataPriceBoxSelector = '[data-role=priceBox]',
+            dataProductIdSelector = '[data-product-id=<?= $block->escapeHtml($_product->getId()) ?>]',
+            priceBoxes = $(dataPriceBoxSelector + dataProductIdSelector);
+
+        priceBoxes = priceBoxes.filter(function(index, elem){
+            return !$(elem).find('.price-from').length;
+        });
+
+        priceBoxes.priceBox({'priceConfig': <?= /* @escapeNotVerified */ $block->getJsonConfig() ?>});
+    });
+
+    require(['jquery'], function($){
+        $(document).ready(function() {
+            var text_max = 200;
+            $('#textarea_feedback').html(text_max + ' characters left');
+
+            $('#textarea').keyup(function() {
+                var text_length = $('#textarea').val().length;
+                var text_remaining = text_max - text_length;
+
+                $('#textarea_feedback').html(text_remaining + ' characters left');
+            });
+        });
+    });
+</script>

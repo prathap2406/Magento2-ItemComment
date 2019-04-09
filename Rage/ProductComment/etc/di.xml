@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Checkout\Controller\Cart\UpdatePost" type="Rage\ProductComment\Controller\Checkout\Cart\UpdatePost" />
+    <type name="Magento\Quote\Model\Cart\Totals\ItemConverter">
+		<plugin disabled="false" name="Rage_ProductComment_Plugin_Magento_Quote_Model_Cart_Totals_ItemConverter" sortOrder="10" type="Rage\ProductComment\Plugin\Magento\Quote\Model\Cart\Totals\ItemConverter"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin disabled="false" name="convert_quote_item_to_order_item" sortOrder="10" type="Rage\ProductComment\Plugin\Magento\Quote\Model\Quote\Item\QuoteToOrderItem" />
+    </type>
+</config>
